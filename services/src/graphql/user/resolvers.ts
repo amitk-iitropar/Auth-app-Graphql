@@ -45,7 +45,7 @@ const mutations = {
     role: string
   }) => {
     const res = await userService.createUser(payload);
-    return res.id;
+    return res;
   },
 };
 
