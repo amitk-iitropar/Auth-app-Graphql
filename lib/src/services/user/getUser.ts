@@ -1,5 +1,7 @@
 import * as data from "./users";
-import { User } from "./modal";
+import { getProcessedObject, getProcessedObjectList } from "../../utils/getProcessedObject"
+import { User, extUser } from "./typedef";
+import { USER, EXTUSER } from "./modal";
 
 const USERS: User[] = data.USERS
 
@@ -9,10 +11,19 @@ export const createUser = async (user: User) => {
     return user;
 }
 
+export const getUserList = async () => {
+    return getProcessedObjectList(EXTUSER, USERS);
+}
+
 export const getUserById = async (id: number) => {
-    return USERS.find(x => x.id == id);
+    const result = USERS.find(x => x.id == id);
+    const newExtUser = EXTUSER();
+    return result ? getProcessedObject(result, newExtUser) : {};
 }
 
 export const getUserByEmail = async (email: string) => {
-    return USERS.find(x => x.email == email);
+    const result = USERS.find(x => x.email == email);
+    const newExtUser = EXTUSER();
+    return result ? getProcessedObject(result, newExtUser) : {};
 }
+

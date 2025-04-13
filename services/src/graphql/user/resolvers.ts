@@ -17,6 +17,22 @@ const queries = {
       return user;
     }
     throw new Error("Unable to find the user!");
+  },
+
+  getUserList: async(_: any, parameters: any, context: any) => {
+    if (context && context.user) {
+      const users = userService.getUserList();
+      return users;
+    }
+    throw new Error("Unauthorize");
+  },
+
+  getUserById: async(_: any, payload: { id: number; }, context: any) => {
+    if (context && context.user) {
+      const user = userService.getUserById(payload.id);
+      return user;
+    }
+    throw new Error("Unauthorize");
   }
 
 };
