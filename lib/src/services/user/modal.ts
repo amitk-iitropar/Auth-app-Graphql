@@ -1,8 +1,18 @@
-export type User = {
-    id?: number
-    name: string
-    email: string
-    password: string
-    role: string
-    phone?: string
+export const USER = () => {
+    return {
+        id: null,
+        name: null,
+        email: null,
+        password: null,
+        role: null
+    }
+}
+
+export const EXTUSER = () => {
+    return {
+        id: null,
+        name: null,
+        email: null,
+        role: null
+    }
 }
