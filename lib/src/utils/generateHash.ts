@@ -6,3 +6,4 @@ export const generateHash = (salt: string, password: string) => {
       .digest("hex");
     return hashedPassword;
 }
+

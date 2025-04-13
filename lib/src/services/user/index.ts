@@ -1,8 +1,10 @@
-import { getUserToken } from "./getUserToken"
-import { getUserById, getUserByEmail } from "./getUser"
+import { getUserToken, decodeJWTToken } from "./getUserToken"
+import { createUser, getUserById, getUserByEmail } from "./getUser"
 
 export {
     getUserToken,
+    decodeJWTToken,
     getUserById,
-    getUserByEmail
+    getUserByEmail,
+    createUser
 }

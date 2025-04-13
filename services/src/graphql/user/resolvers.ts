@@ -1,5 +1,4 @@
-//import UserService, { CreateUserPayload } from "../../services/user";
-import { userService } from "../../../../lib"
+import { userService } from "Auth-app-Graphql"
 
 const queries = {
 
@@ -23,7 +22,12 @@ const queries = {
 };
 
 const mutations = {
-  createUser: async (_: any, payload: CreateUserPayload) => {
+  createUser: async (_: any, payload: {
+    name: string
+    email: string
+    password: string
+    role: string
+  }) => {
     const res = await userService.createUser(payload);
     return res.id;
   },

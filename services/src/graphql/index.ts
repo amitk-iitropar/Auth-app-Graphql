@@ -1,7 +1,6 @@
 import { ApolloServer } from "@apollo/server";
-import { User } from "./user";
 import { typeDefs } from "./typedef";
-import { resolvers } from "./resolvers"
+import { resolvers } from "./resolvers";
 
 async function createApolloGraphqlServer() {
 

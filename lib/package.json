@@ -1,5 +1,5 @@
 {
-  "name": "lib",
+  "name": "Auth-app-Graphql",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

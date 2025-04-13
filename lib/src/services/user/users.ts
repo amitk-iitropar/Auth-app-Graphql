@@ -1,4 +1,4 @@
-exports.USERS = [
+export const USERS = [
     {
       id: 1,
       name: "Leanne Graham",
@@ -11,7 +11,8 @@ exports.USERS = [
       name: "Ervin Howell",
       email: "Howell@april.biz",
       password: "dsfggeddcffgghhhhhhhf",
-      role: "User"
+      role: "User",
+      phone: "+12345"
     }
-  ];
+];
   

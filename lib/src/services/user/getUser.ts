@@ -1,9 +1,18 @@
-const { USERS } = require("./user");
+import * as data from "./users";
+import { User } from "./modal";
 
-export const getUserById = async (id: string) => {
-    return USERS.filter(x => x.id == id);
+const USERS: User[] = data.USERS
+
+export const createUser = async (user: User) => {
+    user.id = USERS.length + 1;
+    USERS.push(user);
+    return user;
+}
+
+export const getUserById = async (id: number) => {
+    return USERS.find(x => x.id == id);
 }
 
 export const getUserByEmail = async (email: string) => {
-    return USERS.filter(x => x.email == email);
+    return USERS.find(x => x.email == email);
 }

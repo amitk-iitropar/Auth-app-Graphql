@@ -1,31 +1,34 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const handlers = require('./handlers');
-const { prepareAPIGatewayEvent } = require('@amitk-iitropar/job-node_common');
-const CONSTANT = require('./constants/constant');
+import express from "express";
+import cors from "cors";
+import { expressMiddleware } from "@apollo/server/express4";
+import createApolloGraphqlServer from "./graphql";
+import { userService } from "Auth-app-Graphql"
 
-const defaultPort = CONSTANT.defaultPort;
 
-const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ strict: true }));
-app.use(cors());
+export const startExpressApp = async (PORT: number) => {
 
-app.all("*", handleAPIRequest);
+    const app = express();
+    app.use(express.json());
+    app.use(cors());
 
-exports.startExpressApp = (port) => {
+    app.get("/", (req, res) => {
+        res.json({ message: "Server is up and running" });
+    });
 
-    app.listen(port ? port : defaultPort, () => {
-        console.log(`Express App started listning on port ${port ? port : defaultPort}`)
-    })
+    app.use("/graphql", expressMiddleware(await createApolloGraphqlServer(), {
+          context: async ({ req }) => {
+            // @ts-ignore
+            const token = req.headers["token"];
+    
+            try {
+              const user = userService.decodeJWTToken(token as string);
+              return { user };
+            } catch (error) {
+              return {};
+            }
+          },
+        })
+    );
 
 }
 
-async function handleAPIRequest(req, res){
-    let event = prepareAPIGatewayEvent(req);
-    console.log('event.apiPath ', event.apiPath)
-    let result = await handlers.handler(event);
-    //res.status(200).json({});
-    res.status(result.statusCode).json(result.body);
-}
